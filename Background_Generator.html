@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Color Generator</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+    transition: background-color 0.3s;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.generator {
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+input[type="color"] {
+    padding: 5px;
+}
+
+.color-display {
+    text-align: center;
+}
+
+.color-box {
+    width: 150px;
+    height: 150px;
+    border: 2px solid #333;
+    margin: 20px;
+}
+</style>
+</head>
+<body>
+    <header>
+        <h1>Background Color Generator</h1>
+    </header>
+    <main>
+        <div class="generator">
+            <button id="randomColorButton">Generate Random Color</button>
+            <input type="color" id="customColorPicker">
+            <button id="customColorButton">Use Customized Color</button>
+        </div>
+        <div class="color-display">
+            <div id="currentColor" class="color-box"></div>
+            <p id="colorCode">#FFFFFF</p>
+        </div>
+    </main>
+    <script>
+        function getRandomColor() {
+            const letters = "0123456789ABCDEF";
+            let color = "#";
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function updateColorDisplay(color) {
+            document.getElementById("currentColor").style.backgroundColor = color;
+            document.getElementById("colorCode").textContent = color;
+        }
+
+        document.getElementById("randomColorButton").addEventListener("click", function() {
+            const randomColor = getRandomColor();
+            document.body.style.backgroundColor = randomColor;
+            updateColorDisplay(randomColor);
+        });
+
+        document.getElementById("customColorButton").addEventListener("click", function() {
+            const customColor = document.getElementById("customColorPicker").value;
+            document.body.style.backgroundColor = customColor;
+            updateColorDisplay(customColor);
+        });
+
+        const initialRandomColor = getRandomColor();
+        document.body.style.backgroundColor = initialRandomColor;
+        updateColorDisplay(initialRandomColor);
+    </script>
+</body>
+</html>

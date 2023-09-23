@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+<style>
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+    
+    header {
+        background-color: cadetblue;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    h1 {
+        margin: 0;
+    }
+    
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+    }
+    
+    .converter {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+    }
+    
+    .converter input[type="number"] {
+        width: 100px;
+        padding: 5px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+    }
+    
+    .converter select {
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+    
+    .converter button {
+        padding: 5px 15px;
+        background-color: cadetblue;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .result {
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .result p {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    </style>    
+</head>
+<body>
+    <header>
+        <h1>Temperature Converter</h1>
+    </header>
+    <main>
+        <div class="converter">
+            <input type="number" id="inputTemperature" placeholder="Enter temperature">
+            <select id="fromScale">
+                <option value="celsius">Celsius (°C)</option>
+                <option value="fahrenheit">Fahrenheit (°F)</option>
+                <option value="kelvin">Kelvin (K)</option>
+            </select>
+            <span>to</span>
+            <select id="toScale">
+                <option value="celsius">Celsius (°C)</option>
+                <option value="fahrenheit">Fahrenheit (°F)</option>
+                <option value="kelvin">Kelvin (K)</option>
+            </select>
+            <button id="convertButton">Convert</button>
+        </div>
+        <div class="result">
+            <p id="resultText"></p>
+        </div>
+    </main>
+    <script>
+        // Function to perform temperature conversion
+        function convertTemperature() {
+            const inputTemperature = parseFloat(document.getElementById("inputTemperature").value);
+            const fromScale = document.getElementById("fromScale").value;
+            const toScale = document.getElementById("toScale").value;
+            let convertedTemperature;
+
+            if (fromScale === "celsius" && toScale === "fahrenheit") {
+                convertedTemperature = (inputTemperature * 9/5) + 32;
+            } else if (fromScale === "celsius" && toScale === "kelvin") {
+                convertedTemperature = inputTemperature + 273.15;
+            } else if (fromScale === "fahrenheit" && toScale === "celsius") {
+                convertedTemperature = (inputTemperature - 32) * 5/9;
+            } else if (fromScale === "fahrenheit" && toScale === "kelvin") {
+                convertedTemperature = (inputTemperature - 32) * 5/9 + 273.15;
+            } else if (fromScale === "kelvin" && toScale === "celsius") {
+                convertedTemperature = inputTemperature - 273.15;
+            } else if (fromScale === "kelvin" && toScale === "fahrenheit") {
+                convertedTemperature = (inputTemperature - 273.15) * 9/5 + 32;
+            } else {
+                convertedTemperature = inputTemperature; // Same scale, no conversion needed
+            }
+            document.getElementById("resultText").textContent = `Converted Temperature: ${convertedTemperature.toFixed(2)} ${toScale}`;
+        }
+        document.getElementById("convertButton").addEventListener("click", convertTemperature);
+    </script>
+</body>
+</html>
